@@ -1,0 +1,30 @@
+{% extends "template/layout.twig" %}
+{% block body %}
+
+	<div class="jumbotron px-5 text-center">
+		<h1 class="display-4 mb-4">Hello, world!</h1>
+		<p class="lead">Welcome to the TimePHP framework demo. This website is a quick example of what you can do using this framework.</p>
+		<p class="lead">This is a basic blog application where you will see the usage of the TimePHP basic functionalities like : rendering views, handling sessions, querying a database, ...</p>
+		<hr class="my-4">
+		<p>If you want to master this framework or if you just want to discover all its functionalities, click the blue button bellow to see the documentation.</p>
+		<p class="lead">
+			<a class="btn btn-primary btn-lg" target="_blank" href="https://timephp-org.github.io/TimePHP-Docs/#/" role="button">Learn more</a>
+		</p>
+	</div>
+
+	<div class="container mt-5">
+		<div class="row">
+
+			{% for article in articles %}
+				{% include 'components/card.twig' with {
+					'title': article.title,
+					'content': article.content|truncate(100),
+					'buttonLink': generateLinkArticle(article.uuid),
+					'buttonLabel': 'Read this'
+				} %}
+			{% endfor %}
+
+		</div>
+	</div>
+
+{% endblock %}

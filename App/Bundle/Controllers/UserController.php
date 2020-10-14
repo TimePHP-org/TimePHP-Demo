@@ -6,11 +6,12 @@
 
 namespace App\Bundle\Controllers;
 
+use \Faker\Factory;
 use App\Bundle\Entity\User;
-use TimePHP\Foundation\Router;
-use TimePHP\Exception\SessionException;
-use App\Bundle\Repository\UserRepository;
+use App\Bundle\Entity\Article;
+use App\Bundle\Services\UserService;
 use TimePHP\Foundation\AbstractController;
+use App\Bundle\Repository\ArticleRepository;
 
 /**
  * @category Controller
@@ -20,14 +21,59 @@ use TimePHP\Foundation\AbstractController;
 class UserController extends AbstractController
 {
 
-    /**
-     * Main controller function
-     *
-     * @return void
-     */
-    public function home(){
+    public function homePage(){
+        $articles = ArticleRepository::getLastThreeArticles();
+        return $this->render('homePage.twig', [
+            "articles" => $articles
+        ]);
+    }
 
-        return $this->render('home.twig');
+    public function articlesPage(){
+        return $this->render('articlesPage.twig');
+    }
+
+    public function articlePage(){
+        return $this->render('articlePage.twig');
+    }
+
+    public function loginPage(){
+        return $this->render('loginPage.twig');
+    }
+
+    public function seederDatabase() {
+
+        $uuid = [];
+
+        $user = new User();
+        $user->username = "admin";
+        $user->password = UserService::password("admin");
+        $user->role = "admin";
+        $user->save();
+
+        $user = new User();
+        $user->username = "user1";
+        $user->password = UserService::password("user1");
+        $user->save();
+
+        $uuid[] = $user->uuid;
+
+        $user = new User();
+        $user->username = "user2";
+        $user->password = UserService::password("user2");
+        $user->save();
+
+        $uuid[] = $user->uuid;
+
+        $faker = Factory::create();
+        for ($i=0; $i < 50; $i++) { 
+            $article = new Article();
+            $article->title = $faker->sentence($nbWords = 6, $variableNbWords = true);
+            $article->content = $faker->text($maxNbChars = 5000) ;
+            $article->userid = $uuid[random_int(0, 1)];
+            $article->save();
+        }
+
+        return $this->render('homePage.twig');
     }
  
 }
