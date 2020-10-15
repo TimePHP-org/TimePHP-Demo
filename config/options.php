@@ -19,6 +19,12 @@ return [
          "function" => "truncate",
       ],
       [
+         "name" => "formatDate",
+         "type" => "filter",
+         "class" => FilterTwig::class,
+         "function" => "formatDate",
+      ],
+      [
          "name" => "generateLinkArticle",
          "type" => "function",
          "class" => FunctionTwig::class,

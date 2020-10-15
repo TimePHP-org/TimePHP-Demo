@@ -28,12 +28,23 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function articlesPage(){
-        return $this->render('articlesPage.twig');
+    public function articlesPage(int $page){
+        $articles = ArticleRepository::getListArticle($page);
+        dd($articles);
+        return $this->render('articlesPage.twig', [
+            "page" => $page
+        ]);
     }
 
-    public function articlePage(){
-        return $this->render('articlePage.twig');
+    public function articlePage(string $uuid){
+
+        $article = ArticleRepository::getArticle($uuid);
+        $suggestions = ArticleRepository::getArticleSuggestions($uuid);
+
+        return $this->render('articlePage.twig', [
+            "article" => $article,
+            "suggestions" => $suggestions
+        ]);
     }
 
     public function loginPage(){

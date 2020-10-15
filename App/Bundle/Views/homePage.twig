@@ -19,7 +19,7 @@
 				{% include 'components/card.twig' with {
 					'title': article.title,
 					'content': article.content|truncate(100),
-					'buttonLink': generateLinkArticle(article.uuid),
+					'buttonLink': generateLinkArticle(article),
 					'buttonLabel': 'Read this'
 				} %}
 			{% endfor %}

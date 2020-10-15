@@ -64,6 +64,6 @@ class Article extends Model {
    }
 
    public function author() {
-      return $this->belongsTo("App\Bundle\Entity\User", "uuid", "userid");
+      return $this->belongsTo("App\Bundle\Entity\User", "userid", "uuid");
    }
 }

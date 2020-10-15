@@ -12,7 +12,7 @@ return [
    ],
    [
       "method" => "get",
-      "url" => "/articles",
+      "url" => "/articles/[i:page]",
       "name" => "articles",
       "controller" => UserController::class,
       "function" => "articlesPage"

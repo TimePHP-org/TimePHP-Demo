@@ -1,5 +1,26 @@
 {% extends "template/layout.twig" %}
 {% block body %}
 
+	<div class="container mt-5">
+
+      <h1>{{ article.title }}</h1>
+      <small class="text-muted">Written by {{ article.author.username }} - {{ article.createdAt|formatDate('Y-m-d') }}</small><br>
+
+      <p class="mt-4" style="font-size: 18px;">{{ article.content }}</p>
+
+      <hr class="mx-4 mt-5">
+
+      <div class='row mt-5'>
+         {% for suggestion in suggestions %}
+            {% include 'components/card.twig' with {
+					'title': suggestion.title,
+					'content': suggestion.content|truncate(100),
+					'buttonLink': generateLinkArticle(suggestion),
+					'buttonLabel': 'Read this'
+				} %}
+         {% endfor %}
+      </div>
+
+   </div>
 
 {% endblock %}
