@@ -18,7 +18,7 @@
 				<label for="content">Content</label>
 				<textarea type="text" name="content" class="form-control" id="content" placeholder="Enter the content" style="min-height: 150px;"></textarea>
 			</div>
-			<input type="hidden" name="csrf_token", value="{{ csrf }}">
+			{{ provideCsrf() }}
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>

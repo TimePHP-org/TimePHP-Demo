@@ -11,6 +11,7 @@ use App\Bundle\Entity\User;
 use App\Bundle\Entity\Article;
 use TimePHP\Security\CsrfToken;
 use App\Bundle\Services\UserService;
+use TimePHP\Security\PasswordService;
 use App\Bundle\Repository\UserRepository;
 use TimePHP\Foundation\AbstractController;
 use App\Bundle\Repository\ArticleRepository;
@@ -76,45 +77,37 @@ class UserController extends AbstractController
     {
         $user = UserRepository::getUserFromUsername($_POST['username']);
         if ($user === null) {
-            return $this->redirectRouteName(
-                'login',
-                [],
-                [
-                    'error' => 'credentials',
-                ]
-            );
+            return $this->redirectRouteName('login', [], [
+                'error' => 'credentials',
+            ]);
         } else {
-            if (password_verify($_POST['password'], $user->password)) {
+            if (PasswordService::compare($this->post('password'), $user->password)) {
                 $this->createSession([
                     'user' => $user,
                     'role' => $user->role,
                 ]);
                 return $this->redirectRouteName('home');
             } else {
-                return $this->redirectRouteName(
-                    'login',
-                    [],
-                    [
-                        'error' => 'credentials',
-                    ]
-                );
+                return $this->redirectRouteName('login', [], [
+                    'error' => 'credentials',
+                ]);
             }
         }
     }
 
     public function newArticle()
     {
-        if (empty($_SESSION['user'])) {
+        if (empty($this->getSession())) {
             return $this->redirectRouteName('home');
         } else {
-            return $this->render('newArticle.twig', [
-                'csrf' => $_SESSION['csrf_token'],
-            ]);
+            return $this->render('newArticle.twig');
         }
     }
 
     public function newArticleForm()
     {
+        //! bug ici, le token c'est pas detecté
+        dd($_POST["csrf_token"]);
         if (CsrfToken::compare($_SESSION['csrf_token'], $_POST['csrf_token'])) {
             $article = new Article();
             $article->title = $_POST['title'];
@@ -129,10 +122,10 @@ class UserController extends AbstractController
         }
     }
 
-    public function deleteArticle() {
-
-        ArticleRepository::deleteArticle($_POST["uuid"]);
-        return $this->redirectRouteName("home");
+    public function deleteArticle()
+    {
+        ArticleRepository::deleteArticle($_POST['uuid']);
+        return $this->redirectRouteName('home');
     }
 
     public function seederDatabase()
