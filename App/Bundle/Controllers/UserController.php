@@ -29,10 +29,16 @@ class UserController extends AbstractController
     }
 
     public function articlesPage(int $page){
+        if($page < 1) {
+            $this->redirectRouteName("articles", [
+                "page" => 1
+            ]);
+        }
         $articles = ArticleRepository::getListArticle($page);
-        dd($articles);
         return $this->render('articlesPage.twig', [
-            "page" => $page
+            "currentPage" => $page,
+            "totalPages" => $articles["totalPages"],
+            "articles" => $articles["articles"]
         ]);
     }
 

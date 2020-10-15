@@ -4,6 +4,7 @@ namespace App\Bundle\Repository;
 
 use App\Bundle\Entity\Article;
 use Illuminate\Database\Capsule\Manager;
+
 class ArticleRepository {
 
    public static function getLastThreeArticles() {
@@ -19,7 +20,13 @@ class ArticleRepository {
    }
 
    public static function getListArticle(int $page) {
-      return Article::orderbyDesc('createdAt')->paginate(15);
+      $limit = 15;
+      $offset = ($page - 1) * $limit;
+      $totalPage = (int) ceil(count(Article::all()->toArray()) / $limit);
+      return [
+         "articles" => Article::orderbyDesc('createdAt')->offset($offset)->limit($limit)->get(),
+         "totalPages" => $totalPage
+      ];
    }
 
 
