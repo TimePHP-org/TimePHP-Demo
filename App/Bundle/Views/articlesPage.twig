@@ -2,25 +2,42 @@
 {% block body %}
 
 	<div class="container mt-5">
+
+		{% if userHasSession() %}
+			<a href="{{ generate('newArticle') }}" class="btn btn-primary mb-4">Write an article</a>
+		{% endif %}
+
 		<div class="row">
-			test
+
+			{% for article in articles %}
+				{% include 'components/card.twig' with {
+					'title': article.title,
+					'uuid': article.uuid,
+					'content': article.content|truncate(100),
+					'buttonLink': generateLinkArticle(article),
+					'buttonLabel': 'Read this',
+               'buttonLabelDelete': 'Delete'
+				} %}
+			{% endfor %}
+
 		</div>
 	</div>
 
+
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
-			<li class="page-item {{ page == 0 ? "disabled" : "" }}">
-				<a class="page-link" href="#" tabindex="-1">Previous</a>
+			<li class="page-item {{ currentPage == 1 ? " disabled" : " " }}">
+				<a class="page-link" href="{{ generate('articles', {page: currentPage-1}) }}" tabindex="-1">Previous</a>
 			</li>
 
 			{% for i in 1..totalPages %}
 				<li class="page-item">
-					<a class="page-link" href="#">{{ i }}</a>
+					<a class="page-link" href="{{ generate('articles', {page: i}) }}">{{ i }}</a>
 				</li>
 			{% endfor %}
-         
-			<li class="page-item">
-				<a class="page-link" href="#">Next</a>
+
+			<li class="page-item  {{ currentPage == totalPages ? " disabled" : " " }}">
+				<a class="page-link" href="{{ generate('articles', {page: currentPage+1}) }}">Next</a>
 			</li>
 		</ul>
 	</nav>

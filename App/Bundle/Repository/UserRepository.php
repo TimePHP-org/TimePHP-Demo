@@ -7,5 +7,9 @@ use Illuminate\Database\Capsule\Manager;
 
 class UserRepository {
 
+   public static function getUserFromUsername(string $username) {
+      $user = User::where("username", "=", $username)->first();
+      return $user;
+   }
 
 }

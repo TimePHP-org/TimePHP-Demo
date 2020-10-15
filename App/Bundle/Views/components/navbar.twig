@@ -14,9 +14,17 @@
 			<li class="nav-item mx-3">
 				<a class="nav-link" href="{{ generate('articles', {page: 0}) }}">Articles</a>
 			</li>
+
+			{% if userHasSession() %}
+			<li class="nav-item">
+				<a class="nav-link" href="{{ generate('logout') }}">Log out</a>
+			</li>
+			{% else %}
 			<li class="nav-item">
 				<a class="nav-link" href="{{ generate('login') }}">Login</a>
 			</li>
+			{% endif %}
+
 		</ul>
 	</div>
 </nav>

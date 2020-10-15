@@ -29,5 +29,10 @@ class ArticleRepository {
       ];
    }
 
+   public static function deleteArticle(string $uuid) {
+      $article = Article::find($uuid);
+      $article->delete();
+   }
+
 
 }

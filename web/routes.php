@@ -33,6 +33,41 @@ return [
    ],
    [
       "method" => "get",
+      "url" => "/logout",
+      "name" => "logout",
+      "controller" => UserController::class,
+      "function" => "logoutPage"
+   ],
+   [
+      "method" => "post",
+      "url" => "/login",
+      "name" => "loginForm",
+      "controller" => UserController::class,
+      "function" => "loginPageForm"
+   ],
+   [
+      "method" => "get",
+      "url" => "/article/new",
+      "name" => "newArticle",
+      "controller" => UserController::class,
+      "function" => "newArticle"
+   ],
+   [
+      "method" => "post",
+      "url" => "/article/new",
+      "name" => "newArticleForm",
+      "controller" => UserController::class,
+      "function" => "newArticleForm"
+   ],
+   [
+      "method" => "post",
+      "url" => "/delete",
+      "name" => "deleteArticle",
+      "controller" => UserController::class,
+      "function" => "deleteArticle"
+   ],
+   [
+      "method" => "get",
       "url" => "/seeder",
       "name" => "seeder",
       "controller" => UserController::class,

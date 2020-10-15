@@ -29,6 +29,24 @@ return [
          "type" => "function",
          "class" => FunctionTwig::class,
          "function" => "generateLinkArticle",
+      ],
+      [
+         "name" => "getParams",
+         "type" => "function",
+         "class" => FunctionTwig::class,
+         "function" => "getParams",
+      ],
+      [
+         "name" => "userHasSession",
+         "type" => "function",
+         "class" => FunctionTwig::class,
+         "function" => "userHasSession",
+      ],
+      [
+         "name" => "userIsAdmin",
+         "type" => "function",
+         "class" => FunctionTwig::class,
+         "function" => "userIsAdmin",
       ]
    ],
 ];
