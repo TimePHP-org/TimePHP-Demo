@@ -75,13 +75,13 @@ class UserController extends AbstractController
 
     public function loginPageForm()
     {
-        $user = UserRepository::getUserFromUsername($_POST['username']);
+        $user = UserRepository::getUserFromUsername($this->request->post('username'));
         if ($user === null) {
             return $this->redirectRouteName('login', [], [
                 'error' => 'credentials',
             ]);
         } else {
-            if (PasswordService::compare($this->post('password'), $user->password)) {
+            if (PasswordService::compare($this->request->post('password'), $user->password)) {
                 $this->createSession([
                     'user' => $user,
                     'role' => $user->role,
@@ -106,25 +106,23 @@ class UserController extends AbstractController
 
     public function newArticleForm()
     {
-
-        //! bug ici, le token c'est pas detecté
-        // if (CsrfToken::compare($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        if (CsrfToken::compare($_SESSION['csrf_token'], $this->request->post('csrf_token'))) {
             $article = new Article();
-            $article->title = $_POST['title'];
-            $article->content = $_POST['content'];
+            $article->title = $this->request->post('title');
+            $article->content = $this->request->post('content');
             $article->userid = $_SESSION['user']->uuid;
             $article->save();
             return $this->redirectRouteName('articles', [
                 'page' => 1,
             ]);
-        // } else {
-        //     return $this->redirectRouteName('home');
-        // }
+        } else {
+            return $this->redirectRouteName('home');
+        }
     }
 
     public function deleteArticle()
     {
-        ArticleRepository::deleteArticle($_POST['uuid']);
+        ArticleRepository::deleteArticle($this->request->post('uuid'));
         return $this->redirectRouteName('home');
     }
 
