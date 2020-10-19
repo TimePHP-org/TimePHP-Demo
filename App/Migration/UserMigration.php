@@ -20,7 +20,7 @@ class UserMigration extends AbstractMigration {
 
             $table->string('username', 255);
             $table->string('password', 255);
-            $table->string('role', 50)->default('user');
+            $table->string('role', 50)->nullable()->default('user');
             
             $table->timestamp("createdAt")->default(Capsule::raw("CURRENT_TIMESTAMP"));
             $table->timestamp("updatedAt")->default(Capsule::raw("CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"));

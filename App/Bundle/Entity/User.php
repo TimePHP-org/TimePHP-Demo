@@ -53,6 +53,13 @@ class User extends Model {
     */
    protected $fillable = ['username', 'password', 'role'];
 
+   /**
+    * Indicates hidden properties
+    *
+    * @var array
+    */
+    protected $hidden = ['password', 'role'];
+
 
    public static function boot(){
       parent::boot();

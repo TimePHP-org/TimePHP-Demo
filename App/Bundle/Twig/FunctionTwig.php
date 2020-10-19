@@ -18,7 +18,7 @@ class FunctionTwig {
       return isset($_SESSION["csrf_token"]);
    }
    public function userIsAdmin() {
-      return isset($_SESSION["csrf_token"]) && $_SESSION["role"] === "admin";
+      return isset($_SESSION["csrf_token"]) && $_SESSION["user"]->role === "admin";
    }
    
 }

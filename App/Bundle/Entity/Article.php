@@ -51,7 +51,7 @@ class Article extends Model {
     *
     * @var array
     */
-   protected $fillable = ['title', 'content', 'userid'];
+   protected $fillable = ['uuid', 'title', 'content', 'userid'];
 
 
    public static function boot(){

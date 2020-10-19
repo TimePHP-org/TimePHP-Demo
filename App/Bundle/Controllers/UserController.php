@@ -53,6 +53,9 @@ class UserController extends AbstractController
 
     public function articlePage(string $uuid)
     {
+
+        dd($_SESSION["user"]);
+
         $article = ArticleRepository::getArticle($uuid);
         $suggestions = ArticleRepository::getArticleSuggestions($uuid);
 
@@ -82,10 +85,7 @@ class UserController extends AbstractController
             ]);
         } else {
             if (PasswordService::compare($this->request->post('password'), $user->password)) {
-                $this->createSession([
-                    'user' => $user,
-                    'role' => $user->role,
-                ]);
+                $this->createSession($user);
                 return $this->redirectRouteName('home');
             } else {
                 return $this->redirectRouteName('login', [], [
@@ -128,6 +128,7 @@ class UserController extends AbstractController
 
     public function seederDatabase()
     {
+
         $uuid = [];
 
         $user = new User();
