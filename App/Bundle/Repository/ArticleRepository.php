@@ -34,5 +34,4 @@ class ArticleRepository {
       $article->delete();
    }
 
-
 }

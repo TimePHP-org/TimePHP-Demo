@@ -16,7 +16,7 @@ class UserMigration extends AbstractMigration {
    public function up(): void {
       if (!Capsule::schema()->hasTable("User")) {
          Capsule::schema()->create("User", function (Blueprint $table) {
-            $table->uuid("uuid");
+            $table->uuid("uuid")->unique();
 
             $table->string('username', 255);
             $table->string('password', 255);

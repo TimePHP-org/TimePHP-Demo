@@ -51,14 +51,14 @@ class User extends Model {
     *
     * @var array
     */
-   protected $fillable = ['username', 'password', 'role'];
+   protected $fillable = ['uuid', 'username', 'password', 'role'];
 
    /**
     * Indicates hidden properties
     *
     * @var array
     */
-    protected $hidden = ['password', 'role'];
+   protected $hidden = ['password', 'role'];
 
 
    public static function boot(){

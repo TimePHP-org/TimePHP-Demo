@@ -53,9 +53,6 @@ class UserController extends AbstractController
 
     public function articlePage(string $uuid)
     {
-
-        dd($_SESSION["user"]);
-
         $article = ArticleRepository::getArticle($uuid);
         $suggestions = ArticleRepository::getArticleSuggestions($uuid);
 
@@ -128,7 +125,6 @@ class UserController extends AbstractController
 
     public function seederDatabase()
     {
-
         $uuid = [];
 
         $user = new User();

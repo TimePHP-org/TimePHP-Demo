@@ -16,11 +16,11 @@ class ArticleMigration extends AbstractMigration {
    public function up(): void {
       if (!Capsule::schema()->hasTable("Article")) {
          Capsule::schema()->create("Article", function (Blueprint $table) {
-            $table->uuid("uuid");
+            $table->uuid("uuid")->unique();
 
             $table->string('title', 255);
             $table->text('content');
-            $table->string('userid', 255);
+            $table->string('userid', 36);
             
             $table->timestamp("createdAt")->default(Capsule::raw("CURRENT_TIMESTAMP"));
             $table->timestamp("updatedAt")->default(Capsule::raw("CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"));
