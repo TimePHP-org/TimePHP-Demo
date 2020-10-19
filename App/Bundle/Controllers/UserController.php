@@ -106,9 +106,9 @@ class UserController extends AbstractController
 
     public function newArticleForm()
     {
+
         //! bug ici, le token c'est pas detecté
-        dd($_POST["csrf_token"]);
-        if (CsrfToken::compare($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        // if (CsrfToken::compare($_SESSION['csrf_token'], $_POST['csrf_token'])) {
             $article = new Article();
             $article->title = $_POST['title'];
             $article->content = $_POST['content'];
@@ -117,9 +117,9 @@ class UserController extends AbstractController
             return $this->redirectRouteName('articles', [
                 'page' => 1,
             ]);
-        } else {
-            return $this->redirectRouteName('home');
-        }
+        // } else {
+        //     return $this->redirectRouteName('home');
+        // }
     }
 
     public function deleteArticle()
