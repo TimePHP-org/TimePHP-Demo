@@ -53,13 +53,6 @@ class Article extends Model {
     */
    protected $fillable = ['uuid', 'title', 'content', 'userid'];
 
-   /**
-    * Indicates hidden properties
-    *
-    * @var array
-    */
-   protected $hidden = ['password', 'role'];
-
 
    public static function boot(){
       parent::boot();

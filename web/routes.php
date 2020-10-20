@@ -1,5 +1,6 @@
 <?php
 
+use App\Bundle\Controllers\ApiController;
 use App\Bundle\Controllers\UserController;
 
 return [
@@ -72,5 +73,13 @@ return [
       "name" => "seeder",
       "controller" => UserController::class,
       "function" => "seederDatabase"
+   ],
+   [
+      "method" => "get",
+      "type" => "api",
+      "url" => "/",
+      "name" => "api_test",
+      "controller" => ApiController::class,
+      "function" => "mainFunction"
    ]
 ];
