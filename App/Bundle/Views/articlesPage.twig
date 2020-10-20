@@ -3,7 +3,7 @@
 
 	<div class="container mt-5">
 
-		{% if userHasSession() %}
+		{% if isConnected() %}
 			<a href="{{ generate('newArticle') }}" class="btn btn-primary mb-4">Write an article</a>
 		{% endif %}
 

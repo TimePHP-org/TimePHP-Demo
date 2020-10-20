@@ -94,7 +94,7 @@ class UserController extends AbstractController
 
     public function newArticle()
     {
-        if (empty($this->getSession())) {
+        if (empty($this->session->get())) {
             return $this->redirectRouteName('home');
         } else {
             return $this->render('newArticle.twig');
@@ -103,11 +103,11 @@ class UserController extends AbstractController
 
     public function newArticleForm()
     {
-        if (CsrfToken::compare($_SESSION['csrf_token'], $this->request->post('csrf_token'))) {
+        if (CsrfToken::compare($this->session->get('csrf_token'), $this->request->post('csrf_token'))) {
             $article = new Article();
             $article->title = $this->request->post('title');
             $article->content = $this->request->post('content');
-            $article->userid = $_SESSION['user']->uuid;
+            $article->userid = $this->session->get('user')->uuid;
             $article->save();
             return $this->redirectRouteName('articles', [
                 'page' => 1,
@@ -119,6 +119,7 @@ class UserController extends AbstractController
 
     public function deleteArticle()
     {
+
         ArticleRepository::deleteArticle($this->request->post('uuid'));
         return $this->redirectRouteName('home');
     }

@@ -5,7 +5,7 @@
 			<p class="card-text">{{ content }}</p>
 			<div>
 				<a href="{{ buttonLink }}" class="btn btn-primary" style="display: inline;">{{ buttonLabel }}</a>
-				{% if userIsAdmin() %}
+				{% if isAdmin() %}
 					<form action="{{ generate('deleteArticle') }}" method="POST" style="display: inline;">
 						<input type="hidden" name="uuid" value="{{ uuid }}">
 						<input type="hidden" name="csrf" value="{{ csrf }}">
